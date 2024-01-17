@@ -93,7 +93,7 @@ class ListingController extends Controller
     public function update(Request $request, Listing $listing)
     {
 
-        //  dd($listing);
+        //dd($listing);
         //make sure first Listing is the model
         $formFieldz = $request->validate([
             'company' => ['required'],
@@ -115,7 +115,7 @@ class ListingController extends Controller
 
     //deleting list
 
-    public function delete(Request $request, Listing $listing)
+    public function destroy(Request $request, Listing $listing)
     {
 
         if ($listing->logo && File::exists(public_path('storage/' . $listing->logo))) {

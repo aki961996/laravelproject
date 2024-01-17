@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\UserController;
 use App\Models\Listing;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Casts\Json;
@@ -28,30 +29,60 @@ use function PHPUnit\Framework\returnSelf;
 Route::get('/', [ListingController::class, "index"]);
 
 //Show Edit Form
-Route::get('/listings/create', [ListingController::class, 'create'])->name('create');
+Route::get('/listings/create', [ListingController::class, 'create'])->name('create')->middleware('auth');
 
 //Store Listing Data
-Route::post('/listings/store', [ListingController::class, 'store'])->name('store');
+Route::post('/listings/store', [ListingController::class, 'store'])->name('store')->middleware('auth');
 
 //Show Edit From
-Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])->middleware('auth');
 
 //Update Listing
-Route::put('/listings/{listing}', [ListingController::class, 'update']);
+Route::put('/listings/{listing}', [ListingController::class, 'update'])->middleware('auth');
 
 //Deleting Listing
-Route::delete('/listings/{listing}', [ListingController::class, 'delete']);
-
-
-
-
-
-
-
+Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware('auth');
 
 
 //single listed data  //do it under bcs may be hit the route first so that time id will set the fucking doing
 Route::get('/listings/{id}', [ListingController::class, "show"])->name('show');
+
+
+//Show Register/Create Form
+Route::get('/register', [UserController::class, 'create']);
+
+//create new user
+Route::post('/users', [UserController::class, 'store']);
+
+//logoout users
+Route::post('/logout', [UserController::class, 'logout']);
+
+
+//show login form
+Route::get('/login', [UserController::class, 'login'])->name('login');
+Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
