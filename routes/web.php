@@ -49,17 +49,17 @@ Route::get('/listings/{id}', [ListingController::class, "show"])->name('show');
 
 
 //Show Register/Create Form
-Route::get('/register', [UserController::class, 'create']);
+Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 
 //create new user
 Route::post('/users', [UserController::class, 'store']);
 
 //logoout users
-Route::post('/logout', [UserController::class, 'logout']);
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 
 //show login form
-Route::get('/login', [UserController::class, 'login'])->name('login');
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
 
