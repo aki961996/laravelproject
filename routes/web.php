@@ -43,10 +43,11 @@ Route::put('/listings/{listing}', [ListingController::class, 'update'])->middlew
 //Deleting Listing
 Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware('auth');
 
+//manege Listing
+Route::get('/listings/manage', [ListingController::class, 'manage'])->middleware('auth');
 
 //single listed data  //do it under bcs may be hit the route first so that time id will set the fucking doing
 Route::get('/listings/{id}', [ListingController::class, "show"])->name('show');
-
 
 //Show Register/Create Form
 Route::get('/register', [UserController::class, 'create'])->middleware('guest');
@@ -57,10 +58,14 @@ Route::post('/users', [UserController::class, 'store']);
 //logoout users
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
-
 //show login form
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+
+
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
+
+
 
 
 

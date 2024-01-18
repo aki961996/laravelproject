@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Listing extends Model
 {
     use HasFactory;
@@ -17,7 +18,8 @@ class Listing extends Model
         "email",
         "website",
         "logo",
-        "description"
+        "description",
+        "user_id"
     ];
 
     public static function find($id)
@@ -47,5 +49,11 @@ class Listing extends Model
                 ->orWhere('company', 'like', '%' . request('search') . '%')
                 ->orWhere('location', 'like', '%' . request('search') . '%');
         }
+    }
+
+    //reletionship with user
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

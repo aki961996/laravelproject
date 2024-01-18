@@ -71,6 +71,10 @@ class ListingController extends Controller
             //$logo = $request->file('logo');
             $formFieldz['logo'] = $request->file('logo')->store('logos', 'public');
         }
+
+        $formFieldz['user_id'] = auth()->id();
+
+
         Listing::create($formFieldz);
         return redirect('/')->with('message', 'Job inserted successfully!');
     }
@@ -123,5 +127,11 @@ class ListingController extends Controller
         }
         $listing->delete();
         return redirect('/')->with('message', 'Listing deleted successfully');
+    }
+
+    public function manage(Request $request)
+    {
+        // dd(auth()->user()->listings());
+        return view('Listings.manage', ['listings' => auth()->user()->listings()->get()]);
     }
 }
